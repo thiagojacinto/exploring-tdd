@@ -4,8 +4,7 @@ def search_books(author):
     """Search books by Author name"""
     data = prepare_request(author)
     url = get_url("https://go.to", data)
-    execute(url)
-    return author
+    return execute(url)
 
 def prepare_request(data):
     """Organize data to send request"""

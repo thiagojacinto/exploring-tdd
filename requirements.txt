@@ -1,0 +1,19 @@
+astroid==2.6.6
+attrs==21.2.0
+-e git+ssh://git@github.com/thiagojacinto/exploring-tdd.git@1923bb414b0bdd2c4c2909ac4fa67bbac710a03a#egg=collection
+importlib-metadata==4.6.4
+iniconfig==1.1.1
+isort==5.9.3
+lazy-object-proxy==1.6.0
+mccabe==0.6.1
+packaging==21.0
+pluggy==0.13.1
+py==1.10.0
+pylint==2.9.6
+pyparsing==2.4.7
+pytest==6.2.4
+toml==0.10.2
+typed-ast==1.4.3
+typing-extensions==3.10.0.0
+wrapt==1.12.1
+zipp==3.5.0

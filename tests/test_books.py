@@ -1,6 +1,8 @@
 from unittest import skip
 from unittest.mock import patch
+
 from collection.books import (
+    execute_url,
     search_books
 )
 
@@ -32,3 +34,19 @@ def test_when_search_with_author_name_should_use_get_url_return_as_input_to_exec
         with patch("collection.books.execute") as duble_execute:
             search_books(author_name)
             duble_execute.assert_called_once_with(url)
+
+class StubHttpResponse:
+
+    def read(self):
+        return b""
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, p1, p2, p3):
+        pass
+
+def test_when_call_execute_url_then_string_should_be_returned():
+    with patch("collection.books.urlopen", return_value = StubHttpResponse()):
+        result = execute_url("https://go.to")
+        assert type(result) == str

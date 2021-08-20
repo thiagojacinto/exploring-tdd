@@ -1,3 +1,5 @@
+from urllib.request import urlopen
+
 """Books module to handle interactions to that resource"""
 
 def search_books(author):
@@ -17,3 +19,9 @@ def get_url(url, data):
 def execute(url):
     """Execute http request"""
     pass
+
+def execute_url(url):
+    """Execute http request by calling urlopen"""
+    with urlopen(url, timeout = 13) as response:
+        result = response.read().decode("utf-8")
+    return result

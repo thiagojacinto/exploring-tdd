@@ -1,9 +1,15 @@
+from typing import Collection
 from unittest import skip
-from unittest.mock import patch
+from unittest.mock import (
+    MagicMock,
+    patch,
+    Mock
+)
 
 from collection.books import (
     execute_url,
-    search_books
+    search_books,
+    write_file
 )
 
 @skip(reason = "Modified / Not yet implemented return type")
@@ -50,3 +56,13 @@ def test_when_call_execute_url_then_string_should_be_returned():
     with patch("collection.books.urlopen", return_value = StubHttpResponse()):
         result = execute_url("https://go.to")
         assert type(result) == str
+
+@patch("collection.books.os.makedirs", side_effect=OSError("Not allowed to create directory /tmp"))
+@patch("collection.books.logging")
+def test_when_create_directory_should_throw_exception(spy_logging, stub_makedirs):
+    file = '/tmp/file'
+    content = 'this is the file content'
+    write_file(file, content)
+    stub_makedirs.assert_called_once_with('/tmp')
+    spy_logging.exception.assert_called_once_with('Not allowed to create directory /tmp')
+

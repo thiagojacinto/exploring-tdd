@@ -66,3 +66,13 @@ def test_when_create_directory_should_throw_exception(spy_logging, stub_makedirs
     stub_makedirs.assert_called_once_with('/tmp')
     spy_logging.exception.assert_called_once_with('Not allowed to create directory /tmp')
 
+@patch("collection.books.os.makedirs")
+@patch("collection.books.logging")
+@patch("collection.books.open", side_effect=FileExistsError())
+def test_when_create_file_that_already_exists(stub_open, spy_logging, stub_makedirs):
+    file = '/tmp/test/file'
+    content = 'this is the file content'
+    write_file(file, content)
+    stub_open.assert_called_once_with(file, 'w')
+    spy_logging.exception.assert_called_once_with('File /tmp/test/file already exists')
+

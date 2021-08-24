@@ -34,3 +34,9 @@ def write_file(file_name, content):
         os.makedirs(dir_path)
     except OSError as error:
         logging.exception("Not allowed to create directory %s" % dir_path)
+
+    try:
+        with open(file_name, 'w') as file:
+            file.write(content)
+    except FileExistsError as error:
+        logging.exception(f"File %s already exists" % file_name)
